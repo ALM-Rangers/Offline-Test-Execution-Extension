@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Upload Test Cases</title>
+    <script src="SDK/scripts/VSS.SDK.js"></script>
+    <script src="SDK/scripts/ai.1.0.0-build00159.min.js"></script>
+    <script src="scripts/js/jszip.js"></script>
+    <script src="scripts/js/Blob.js"></script>
+    <script src="scripts/js/xlsx.full.min.js"></script>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // Initialize the VSS sdk
+        VSS.init({
+            explicitNotifyLoaded: true,
+            usePlatformScripts: true,
+            usePlatformStyles: true,
+            moduleLoaderConfig: {
+                paths: {
+                    "scripts/": "scripts/"
+                }
+            }
+        });
+        var fileInput;
+        // Wait for the SDK to be initialized
+        VSS.ready(function () {
+            VSS.require(["scripts/OfflineTesting"], function (OTE) {
+                OTE.registerTab();
+                VSS.notifyLoadSucceeded();
+            });
+        });
+    </script>
+    <link rel="stylesheet" type="text/css" href="css/app.css" />
+
+
+    <div class="hub-view explorer">
+        <div id="message">
+        </div>
+
+        <div class="mainPane">
+            <div class="hub-title">
+                <select id="selectAction">
+                    <option value="#tabExport">Export</option>
+                    <option value="#tabImport">Import</option>
+                </select>
+            </div>
+            <div style="left: 12px; top: 50px; right: 0px; bottom: 0px; position: absolute;">
+                <div class="wait-control-target"></div>
+
+                <div id="tabExport" class="grid" style="left: 0px; top: 0px; right: 0px; bottom: 0px; margin-left: 6px; position: absolute;">
+
+                    Filter export to:
+                    <table id="filterExport">
+                        <tr>
+                            <td><label for="cboInclude">Include </label></td>
+                            <td width="300px">
+                                <div id="cboInclude"></div>
+                            </td>
+                            <td rowspan="3"><button id="cmdExport">Export to Excel</button></td>
+                        </tr>
+                        <tr>
+                            <td><label for="cboConfig">Config</label></td>
+                            <td>
+                                <div id="cboConfig"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="cboTester">Tester</label></td>
+                            <td>
+                                <div id="cboTester"></div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div id="exportGrid" class="fill-grid"></div>
+
+                </div>
+
+                <div id="tabImport" class="grid" style="left: 0px; top: 0px; right: 0px; bottom: 0px; margin-left: 6px; position: absolute; display:none">
+                    <div id="testCaseMessage"></div>
+                    <div id="uploadTestCasesForm" class="fill" style="display:flex; flex-direction: column;">
+                        <div id="importPane">
+                            <div id="uploadHeader" class="searchDescription header">1. Upload your Excel File to import the test results.</div>
+                            <div id="uploadedHeader" class="searchDescription" style="display:none">Uploaded files:</div>
+                            <div id="uploadCases" style="max-width:550px;"></div>
+                            <hr />
+                        </div>
+                        <div id="createRunPane">
+                            <div id="createHeader" class="searchDescription header">2. Validate and Import into a Manual test run </div>
+                            <table id="createTestRunParam">
+                                <tr id="navbar-row">
+
+                                    <td>
+                                        <div style="display:none;" id="navToolbarImport"></div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td id="validationSummary" rowspan="3" style="display:none">
+                                        <div><img id="validTestPlanImg" src="img/wait.gif" class="validImg" /><span id="validTestPlan">Validate test plan</span></div>
+                                        <div><img id="validTestCasesImg" src="img/wait.gif" class="validImg" /><span id="validTestCases">Validate test plan</span></div>
+                                        <div><img id="validOutcomeImg" src="img/wait.gif" class="validImg" /><span id="validOutcome">Validate outcome</span></div>
+                                        <div><img id="validTestPointsImg" src="img/wait.gif" class="validImg" /><span id="validTestPoints">Validate test points</span></div>
+                                    </td>
+                                    <td><label for="txtRunName">Test Run Name</label></td>
+                                    <td><input type="text" size="50" id="txtRunName" /></td>
+                                    <td rowspan="3"><button id="cmdImport">Import </button></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="dtStartDate">Test Run Started</label></td>
+                                    <td>
+                                        <div id="dtStartDate"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="dtEndDate">Test Run Completed</label></td>
+                                    <td>
+                                        <div id="dtEndDate"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="validatePane" style="flex:1">
+                            <div id="importGrid"></div>
+                        </div>
+
+                        <div id="testRunResult" style="display:none">
+                            <div id="success" class="successMsg" style="display:none">Success</div>
+                            <div id="failure" class="failedMsg" style="display:none">Failed</div>
+                            <div id="resultMsg">Imported {testCount} test restults </div>
+                            <div id="testRunDiv" >Open testrun <a id="testRunLnk" href="" target="_blank">{testrunId}</a></div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="showTestCaseDetailsView" style="display:none">
+        <div id="warningMsg" style="display:none"><img id="WarningImg" src="img/icon-warning.png" class="validImg" /><span id="showWarningText"></span></div>
+        <div id="errMsg" style="display:none"><img id="errImg" src="img/icon-error.png" class="validImg" /><span id="showErrText">Validate test plan</span></div>
+
+        <table id="createTestRunParam">
+   
+            <tr>
+                <td>Outcome</td>
+                <td>
+                    <div id="testCaseOutcome"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Config</td>
+                <td>
+                    <div id="testCaseConfig"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>Tester</td>
+                <td>
+                    <div id="testCaseTester"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td></td>
+            </tr>
+            <tr style="vertical-align:top" >
+                <td >Steps</td>
+                <td>
+                    <div id="gridTestSteps" class="table">
+                        <div id="gridTestStepsHeader" class="tableHeader">
+                            <div class="tableCell">Step</div>
+                            <div class="tableCell" style="min-width:100px">Action</div>
+                            <div class="tableCell" style="min-width:100px">Expected</div>
+                            <div class="tableCell">Outcome</div>
+                            <div class="tableCell">Comment</div>
+                        </div>
+                        <div id="tmpltRowStep" class="tableRow">
+                            <div id="index" class="tableCell"></div>
+                            <div id="action" class="tableCell"></div>
+                            <div id="expected" class="tableCell"></div>
+                            <div id="outcome" class="tableCell"></div>
+                            <div id="comment" class="tableCell"></div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+ 
+</body>
+
+</html>

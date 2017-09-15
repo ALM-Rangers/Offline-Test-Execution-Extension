@@ -1,0 +1,10 @@
+﻿{
+"package": {
+		"manifestGlobs": ["vss-extension.json"]
+	},
+	"publish": {
+    "galleryUrl": "https://marketplace.visualstudio.com/",
+    "publisher": "alm-rangers",
+		"token": "ewjvmszxduyb4r7wvjurydihvkrj37ptaz45f3jgpuqx7gaj5nua"
+	}
+}

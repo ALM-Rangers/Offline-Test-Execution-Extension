@@ -1,0 +1,63 @@
+﻿{
+  "manifestVersion": 1,
+  "id": "vso-offlinetestexecution",
+  "version": "0.3",
+  "name": "Offline Test Execution",
+  "description": "This extension allows the Tester to perform the Test Steps even if disconnected from Visual Studio Online. It can be done using the exported Excel Spreadsheet.",
+  "publisher": "alm-rangers",
+  "public": false,
+  "scopes": [
+    "vso.test",
+    "vso.test_write",
+    "vso.work",
+    "vso.work_write"
+  ],
+  "icons": {
+    "default": "img/logo.png"
+  },
+  "targets": [
+    {
+      "id": "Microsoft.VisualStudio.Services"
+    }
+  ],
+  "tags": [
+    "OfflineTestExecution"
+  ],
+  "categories": [
+    "Integrate"
+  ],
+  "content": {
+    "details": {
+      "path": "readme.md"
+    },
+    "license": {
+      "path": "LICENSE.txt"
+    }
+  },
+  "screenshots": [
+
+  ],
+  "links": {
+    
+  },
+  "branding": {
+    "color": "rgb(220, 235, 252)",
+    "theme": "light"
+  },
+  "baseUri": "http://localhost:52265/",
+  
+  "contributions": [
+    {
+      "id": "home",
+      "targets": [
+        "ms.vss-test-web.test-hub-group"
+      ],
+      "type": "ms.vss-web.hub",
+      "properties": {
+        "name": "Offline Test Execution",
+        "order": 100,
+        "uri": "index.html"
+      }
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+// A task runner configuration.
+{
+    "version": "0.1.0",
+    "command": "grunt",
+    "isShellCommand": true,
+    "isWatching": true,
+    "args": [
+        
+    ],
+    "tasks":[
+        {
+            "taskName": "vscode",
+            "isTestCommand": true,
+            "showOutput": "always",
+            "problemMatcher": "$msCompile",
+            "args":[
+                "vscode"
+            ]
+        },
+        {
+            "taskName": "vscode",
+            "isBuildCommand": true,
+            "isWatching": true,
+            "problemMatcher": "$tsc-watch",
+            "args": [
+                "tsc -p ."
+            ]
+        }
+    ]
+}

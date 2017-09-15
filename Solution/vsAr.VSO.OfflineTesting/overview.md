@@ -4,7 +4,7 @@ Sometimes the need for execute test cases without connection to the Visual Studi
 ### Export ###
 Export the entire test plan, or a filtered selection, to an Excel file. Filter the export to the entire test plan, the selected suite with or without children, configuration and/or tester before exporting. 
 
-![Export](Solution/vsAr.VSO.OfflineTesting/screenshots/Export.png)
+![Export](screenshots/Export.png)
 
 ### Offline execution ###
 View test cases offline in excel and mark them as passed, failed or blocked.

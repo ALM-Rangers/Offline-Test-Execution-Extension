@@ -1,0 +1,146 @@
+﻿.tableRow {
+       display:table-row;
+        vertical-align:top;
+}
+
+.tableHeader {
+       display:table-row;
+}
+.tableCell{
+       display:table-cell;
+}
+
+.table {
+    display:table;
+    padding:6px;
+}
+
+#gridTestSteps > .tableRow >.tableCell,  #gridTestSteps > .tableHeader >.tableCell {
+    padding-left:6px;
+    padding-right:6px;
+    padding-top:2px;
+    padding-bottom:2px;
+}
+#gridTestStepsHeader {
+}
+#gridTestStepsHeader{
+
+}
+
+
+.header {
+    font-size:large;
+}
+
+#cmdExport,#cmdImport  {
+    height:70px;
+}
+
+#filterExport td{
+    padding-right:12px;
+}
+
+#createTestRunParam td {
+       padding-right:12px;
+}
+.searchDescription {
+    -ms-grid-column: 1;
+    -ms-grid-row: 1;
+    padding-bottom: 5px;
+}
+
+.labelTitle {
+    color: #B7B7B7;
+}
+
+.searchLabel {
+    -ms-grid-column: 1;
+    -ms-grid-row: 2;
+    padding-bottom: 5px;
+}
+
+.searchBox {
+    -ms-grid-column: 1;
+    -ms-grid-row: 3;
+}
+
+.workItemsLabel {
+    -ms-grid-column: 1;
+    -ms-grid-row: 4;
+    padding-top: 9px;
+}
+
+.noWILabel {
+    -ms-grid-column: 1;
+    -ms-grid-row: 5;
+    padding-top: 5px;
+}
+
+.searchPrimary {
+    -ms-grid-column: 2;
+    -ms-grid-row: 1;
+     height: 22px;
+    position: relative;
+}
+
+.icon-valid-passed {
+    background-image: url(../img/icon-passed.png);
+}
+
+.icon-valid-error {
+    background-image: url(../img/icon-error.png);
+}
+
+
+.icon-valid-warning {
+    background-image: url(../img/icon-warning.png);
+}
+
+
+.icon-export-tests {
+    background-image: url(../img/export.png);
+}
+
+.icon-import-tests {
+    background-image: url(../img/import.png);
+}
+.successMsg {
+    font-size:x-large;
+    color:green;
+}
+
+.failedMsg {
+    font-size:x-large;
+    color:red;
+}
+
+
+    .fill-grid{
+       position:absolute; 
+          top:90px;
+       left:0px;
+       right:0px; 
+       bottom:0px
+    }
+
+       .fill{
+       position:absolute; 
+          top:0px;
+       left:0px;
+       right:0px; 
+       bottom:0px
+    }
+
+.validImg {
+    margin-right:6px;
+}
+#importGrid {
+    position:absolute;
+    top:230px;
+    left:12px;
+    right:12px;
+    bottom:12px;
+}
+#createTestRunParam {
+    margin-left:12px;
+}

@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "module": "amd",
+    "target": "es5",
+    "moduleResolution": "node",
+
+    "sourceMap": true,
+    "types": [
+      "vss-web-extension-sdk"
+    ]
+  },
+  "files": [ "scripts/TelemetryClient.ts",
+    "scripts/common.ts",
+    "scripts/serviceExcel",
+    "scripts/serviceTestCase",
+    "scripts/QueryFetcher",
+    "scripts/TestHelper",
+    "scripts/TeleMetryClient",
+    "scripts/viewTestCaseDetails",
+    "scripts/viewExport.ts",
+ 
+    "scripts/viewImport.ts",
+ 
+    "scripts/OfflineTesting.ts"
+  ]
+
+
+}
