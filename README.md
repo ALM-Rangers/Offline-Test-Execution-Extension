@@ -33,3 +33,13 @@ We need your feedback! Here are some ways to connect with us:
 Review the [list of features and resolved issues of latest tools and extensions](https://aka.ms/vsarreleases) for information on the latest releases.
 
 Notices for certain third-party software included in this extension are provided here: [Third Party Notice](ThirdPartyNotice.txt).
+
+## Contribute
+Contributions are welcome. Here is how you can contribute:  
+
+- Submit bugs and help us verify fixes  
+- Submit pull requests for bug fixes and features and discuss existing proposals   
+
+Please refer to [Contribution guidelines](.github/CONTRIBUTING.md) and the [Code of Conduct](.github/COC.md) for more details.
+
+[View Notices](https://marketplace.visualstudio.com/_apis/public/gallery/publisher/ms-devlabs/extension/OfflineTestExecution/latest/assetbyname/ThirdPartyNotice.txt) for third party software included in this extension.
