@@ -9,11 +9,11 @@ Export the entire test plan, or a filtered selection, to an Excel file. Filter t
 ### Offline execution ###
 View test cases offline in excel and mark them as passed, failed or blocked.
 
-![View in Excel and mark test cases as passed or failed](screenshots/Excel.png)
+![View in Excel and mark test cases as passed or failed](Solution/vsAr.VSO.OfflineTesting/screenshots/Excel.png)
 
 ### Import outcome ###
 Import the outcome from excel to your test plan.
-![Import the outcome to the test plan](screenshots/import2.png)
+![Import the outcome to the test plan](Solution/vsAr.VSO.OfflineTesting/screenshots/import2.png)
 
 ## Pricing
 **Free**, but only VSTS users (not stakeholders) can be assigned the Test Case Explorer extension. Learn more about [VSTS Feature Matrix](https://www.visualstudio.com/team-services/compare-features/) and [VSTS Pricing](https://aka.ms/vs-pricing).
