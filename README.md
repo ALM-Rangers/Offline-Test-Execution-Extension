@@ -1,3 +1,7 @@
+# Offline-Test-Execution-extension
+
+![Offline-Test-Execution-extension](https://almrangers.visualstudio.com/_apis/public/build/definitions/7f3cfb9a-d1cb-4e66-9d36-1af87b906fe9/109/badge)
+
 ## Export and execute test cases offline and import the outcome to the test plan ##
 Sometimes the need for execute test cases without connection to the Visual Studio Team Services (VSTS). This extension lets you export your planed test cases to an excel file. With the Excel file, you can mark test cases as passed or failed in an offline environment, and the use the tool to import the outcome back to the test plan. 
 
