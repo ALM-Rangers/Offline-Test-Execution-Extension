@@ -2,7 +2,7 @@
 THIRD-PARTY SOFTWARE NOTICES AND INFORMATION
 Do Not Translate or Localize
 
-Offline Test Execution Extension incorporates components from the projects listed below. Microsoft licenses these components to you under Microsoft’s licensing terms for the Offline Test Execution Extension.  The original copyright notices and the licenses under which Microsoft received such components are set forth below for informational purposes. Microsoft reserves all rights not expressly granted herein, whether by implication, estoppel or otherwise.
+Offline Test Execution Extension incorporates third party material from the projects listed below. The original copyright notice and the license under which Microsoft received such third party material are set forth below. Microsoft reserves all other rights not expressly granted, whether by implication, estoppel or otherwise. 
 
 
 1.	eligrey-blob (https://github.com/eligrey/Blob.js)
