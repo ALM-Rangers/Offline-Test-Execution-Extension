@@ -2,7 +2,7 @@
 THIRD-PARTY SOFTWARE NOTICES AND INFORMATION
 Do Not Translate or Localize
 
-Offline Test Execution Extension incorporates third party material from the projects listed below. The original copyright notice and the license under which Microsoft received such third party material are set forth below. Microsoft reserves all other rights not expressly granted, whether by implication, estoppel or otherwise. 
+Offline Test Execution Extension incorporates third party material from the projects listed below. The original copyright notice and the license under which ALM | DevOps Ranger Contributors received such third party material are set forth below. ALM | DevOps Ranger Contributors reserve all other rights not expressly granted, whether by implication, estoppel or otherwise. 
 
 
 1.	eligrey-blob (https://github.com/eligrey/Blob.js)
@@ -12,7 +12,7 @@ Offline Test Execution Extension incorporates third party material from the proj
 
 %% eligrey-blob NOTICES, INFORMATION, AND LICENSE BEGIN HERE
 =========================================
-Copyright © 2014 Eli Grey.
+Copyright ï¿½ 2014 Eli Grey.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -27,7 +27,7 @@ END OF eligrey-blob NOTICES, INFORMATION, AND LICENSE
 The MIT License
 ===============
 
-Copyright (c) 2009-2016 Stuart Knightley, David Duponchel, Franz Buchinger, António Afonso
+Copyright (c) 2009-2016 Stuart Knightley, David Duponchel, Franz Buchinger, Antï¿½nio Afonso
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
