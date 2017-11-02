@@ -32,7 +32,10 @@
     font-size:large;
 }
 
-#cmdExport,#cmdImport  {
+#cmdExport{
+    height:50px;
+}
+#cmdImport  {
     height:70px;
 }
 

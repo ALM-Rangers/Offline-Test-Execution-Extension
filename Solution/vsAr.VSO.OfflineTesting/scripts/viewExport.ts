@@ -87,13 +87,14 @@ export class viewExport extends Common.viewBase {
         });
 
         $("#cmdExport").click(e => {
-            self.export();
-            
+            var exportTestSteps:boolean = $("#chkIncludeTestSteps")[0].checked;
+            self.export(exportTestSteps);
         });
     }
 
-    protected export() {
+    protected export(exportTestSteps:boolean) {
         var self = this;
+
         self.StartLoading(true, "Exporting to excel...");
         var tabName = self.testPlan.id + ";" + self.testPlan.name;
         tabName = tabName.replace(/[*?:\/\[\]]/g, '');
@@ -139,7 +140,7 @@ export class viewExport extends Common.viewBase {
                                             outcome: null,
                                             comment: "",
                                             execDate: tp.execDate,
-                                            steps: pi.steps,
+                                            steps: exportTestSteps ? pi.steps : null,
                                             runBy : tp.runBy
                                         };
                                         tpLst.splice(ix+pi_ix, (pi_ix==0)?1:0, i);
@@ -148,7 +149,9 @@ export class viewExport extends Common.viewBase {
                                    
 
                                     tp.iteration = 0;
-                                    tp.steps = steps;
+                                    if (exportTestSteps) {
+                                        tp.steps = steps;
+                                    };
                                 }
                             };
                         }
@@ -158,7 +161,9 @@ export class viewExport extends Common.viewBase {
                             tpLst.forEach(tp => {
                                 if (tp.testCaseId == tc.id) {
                                     tp.iteration = 0;
-                                    tp.steps = steps;
+                                    if (exportTestSteps) {
+                                        tp.steps = steps;
+                                    }
                                 }
                             });
 
@@ -166,7 +171,7 @@ export class viewExport extends Common.viewBase {
                     }
                 });
 
-                var xlWB = SvcExcel.exportToExcel(tabName, tpLst, { bookType: 'xlsx', bookSST: true, type: 'binary', name: self.testSuite.name + ".xlsx" });
+                var xlWB = SvcExcel.exportToExcel(tabName, exportTestSteps, tpLst, { bookType: 'xlsx', bookSST: true, type: 'binary', name: self.testSuite.name + ".xlsx" });
                 var config = self.cboConfig.getText();
                 var tester = self.cboTester.getText();
                 var fileName = "OTE_" + Common.secureForFileName(self.testSuite.name) + "_" + Common.secureForFileName(config) + "_" + Common.secureForFileName(tester) + ".xlsx";

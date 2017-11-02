@@ -29,7 +29,7 @@ export interface IImportData {
 
 
 
-export function importFromExcel(input): { plan: string, data: IImportData[], minDate: Date, maxDate: Date} {
+export function importFromExcel(input): { plan: string, containsSteps:boolean, data: IImportData[], minDate: Date, maxDate: Date} {
     var self = this;
     var testResults: IImportData[] = [];
     var el = <FileInput.FileInputControl>input;
@@ -42,6 +42,8 @@ export function importFromExcel(input): { plan: string, data: IImportData[], min
 
     var worksheet = workbook.Sheets[workbook.SheetNames[0]];
     var src = XLSX.utils.sheet_to_json(worksheet);
+    var containsTestSteps = src[0].hasOwnProperty("TestStep");
+
     var minDt: Date = null;
     var maxDt: Date = null;
     src.filter((x:any)=> { return x.TestPointId != '' }).forEach((itm: any) => {
@@ -111,25 +113,36 @@ export function importFromExcel(input): { plan: string, data: IImportData[], min
 
 
     });
-    return { plan: workbook.SheetNames[0],data: testResults, minDate:minDt, maxDate:maxDt}
+    return { plan: workbook.SheetNames[0], containsSteps:containsTestSteps, data: testResults, minDate:minDt, maxDate:maxDt}
 
 }
 
-export function exportToExcel(sheetName, tpList: IImportData[], opts):any {
-    var xlWB = createExcel(sheetName, tpList, opts);
+export function exportToExcel(sheetName, includeTestSteps: boolean, tpList: IImportData[], opts):any {
+    var xlWB = createExcel(sheetName, includeTestSteps, tpList, opts);
     return xlWB;
 }
 
-function createExcel(sheetName, tpList:IImportData[], opts):any {
+function createExcel(sheetName, includeTestSteps:boolean,  tpList:IImportData[], opts):any {
     var ws = {};
     // Convert objects to two dimensional array
     var data: Array<Array<any>> = new Array<Array<any>>();
-
-    data[0] = ["TestCaseId", "Title", "TestStep", "StepAction", "StepExpected", "TestPointId", "Configuration", "Tester", "Outcome", strComment];
+    if (includeTestSteps) {
+        data[0] = ["TestCaseId", "Title", "TestStep", "StepAction", "StepExpected", "TestPointId", "Configuration", "Tester", "Outcome", strComment];
+    }
+    else {
+        data[0] = ["TestCaseId", "Title", "TestPointId", "Configuration", "Tester", "Outcome", strComment];
+    }
+    
     var rowCounter = 1;
     function getRowData(test: IImportData) {
         var testPointStr = $.isNumeric(test.iteration) ? test.testPointId + ":" + test.iteration: test.testPointId ;
-        data[rowCounter] = [test.testCaseId, test.title, "", "", "", testPointStr, test.config, test.tester, "",  ""];
+
+        if (includeTestSteps) {
+            data[rowCounter] = [test.testCaseId, test.title, "", "", "", testPointStr, test.config, test.tester, "", ""];
+        }
+        else {
+            data[rowCounter] = [test.testCaseId, test.title, testPointStr, test.config, test.tester, "", ""];
+        }
         rowCounter++;
            
         if (test.steps != undefined) {
@@ -184,8 +197,17 @@ function createExcel(sheetName, tpList:IImportData[], opts):any {
         Sheets: {}
     }
 
+
     workbook.SheetNames.push(Common.xmlEscape(sheetName));
-    ws['!dataValidations'] = [{ type: "list", allowBlank: "1", showInputMessage: "1", showErrorMessage: "1", range: "I1:I1048576", formula: "Passed,Failed,Blocked,Paused" }];
+    //Set rule for cels in outcome column;
+    var rngOutcomeCol= "";
+    if (includeTestSteps) {
+        rngOutcomeCol = "I1:I1048576"
+    }
+    else {
+        rngOutcomeCol = "F1:F1048576"
+    }
+    ws['!dataValidations'] = [{ type: "list", allowBlank: "1", showInputMessage: "1", showErrorMessage: "1", range: rngOutcomeCol, formula: "Passed,Failed,Blocked,Paused" }];
     ws['!cols'] = [
         { wch: 10 },
         { wch: 10 },

@@ -167,7 +167,7 @@ export class viewImport extends Common.viewBase {
             self.startDateCtrl.setText(impData.minDate != null ? impData.minDate.toDateString() : new Date().toDateString());
             self.endDateCtrl.setText(impData.maxDate != null ? impData.maxDate.toDateString() : new Date().toDateString());
 
-            self.Validate();
+            self.Validate(impData.containsSteps );
      } else {
             $("#uploadHeader").show();
             $("#uploadedHeader").hide();
@@ -277,7 +277,7 @@ export class viewImport extends Common.viewBase {
         return deferred.promise();
     }
 
-    public Validate() {
+    public Validate(containsSteps:boolean) {
         var self = this;
         
         self.onGoingValidations = "Validating Outcome, Test cases, Test points";
@@ -287,7 +287,7 @@ export class viewImport extends Common.viewBase {
             self.ValidatePlan(),
             self.ValidateTestPoints(),
             self.ValidateOutcomeAndDuplicates(),
-            self.ValidateTestCases()];
+            self.ValidateTestCases(containsSteps)];
         Q.all(prms).then(data => {
             var prop = {
                 testPointCnt: self.testResults.length,
@@ -403,7 +403,7 @@ export class viewImport extends Common.viewBase {
         return deferred.promise();
     }
 
-    public ValidateTestCases():IPromise<any> {
+    public ValidateTestCases(validateTestStep: boolean):IPromise<any> {
         var deferred = $.Deferred<any>();
         var self = this;
         var tpFetcher = new SvcTest.TestResultImporter();
@@ -415,7 +415,7 @@ export class viewImport extends Common.viewBase {
         tpFetcher.fetchTestCases(planId, this.testResults.map(i => { return i.testCaseId; }), testHelper).then(
                 data => {
                 self.testResults.forEach(i => {
-                    var r = self.ValidateTC(i, data, testHelper);
+                    var r = self.ValidateTC(validateTestStep, i, data, testHelper);
                     warningCnt += r.warning;
                     errorCnt += r.errors;
 
@@ -470,7 +470,7 @@ export class viewImport extends Common.viewBase {
         return deferred.promise();
     }
     
-    public ValidateTC(importRow: SvcExcel.IImportData, tcdata, testHelper:TestHelper.TestHelper): { warning: number, errors: number }{
+    public ValidateTC(validateTestStep:boolean,  importRow: SvcExcel.IImportData, tcdata, testHelper:TestHelper.TestHelper): { warning: number, errors: number }{
         var warningCnt: number = 0;
         var errorsCnt: number = 0;
      
@@ -487,7 +487,7 @@ export class viewImport extends Common.viewBase {
                 warningCnt += testStepsValidation.warning;
             }
             else {
-                if (tc.fields['Microsoft.VSTS.TCM.Steps'] != null) {
+                if (validateTestStep && tc.fields['Microsoft.VSTS.TCM.Steps'] != null) {
                     importRow.validErrMsg = "Test case doesnt contain the test steps";
                     errorsCnt++;
                 }
