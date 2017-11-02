@@ -285,7 +285,7 @@ export class TestHelper {
                     }));
 
                     if (step.childNodes != null) {
-                        steps = steps.concat(self.parseTestSteps(step.childNodes, attachments, index, startIx + 2));
+                        steps = steps.concat(self.parseTestSteps(step.childNodes, attachments, index, i + startIx));
                     }
                 }
                 catch (ex) {
