@@ -1,4 +1,4 @@
-﻿/// <reference path="../SDK/scripts/ai.1.0.0-build00159.d.ts" />
+/// <reference path="../SDK/scripts/ai.1.0.0-build00159.d.ts" />
 
 import Context = require("VSS/Context");
 import VSS_VSS = require("VSS/VSS");
@@ -12,6 +12,7 @@ export class TelemetryClient implements VSS_VSS.errorPublisher {
             this.telemetryClient.Init();
         }
         return this.telemetryClient;
+       
     }
 
     private appInsightsClient: Microsoft.ApplicationInsights.AppInsights;
@@ -25,15 +26,15 @@ export class TelemetryClient implements VSS_VSS.errorPublisher {
                 }
             };
             var x = VSS.getExtensionContext();
+            this.appInsightsClient = null;
+            //var init = new Microsoft.ApplicationInsights.Initialization(snippet);
+            //this.appInsightsClient = init.loadAppInsights();
 
-            var init = new Microsoft.ApplicationInsights.Initialization(snippet);
-            this.appInsightsClient = init.loadAppInsights();
+            //var webContext = VSS.getWebContext();
+            //this.appInsightsClient.setAuthenticatedUserContext(
+            //    webContext.user.id, webContext.collection.id);
 
-            var webContext = VSS.getWebContext();
-            this.appInsightsClient.setAuthenticatedUserContext(
-                webContext.user.id, webContext.collection.id);
-
-            window.onerror = this.appInsightsClient._onerror;
+            //window.onerror = this.appInsightsClient._onerror;
             VSS_VSS.errorHandler.attachErrorPublisher(self);
 
         }
@@ -49,8 +50,9 @@ export class TelemetryClient implements VSS_VSS.errorPublisher {
         e.name = error.name;
         e.message = error.message;
         e["stack"] = error.stack;
-
-        this.appInsightsClient.trackException(e)
+        if (this.appInsightsClient != null) {
+            this.appInsightsClient.trackException(e)
+        }
     }
 
     public startTrackPageView(name?: string) {
