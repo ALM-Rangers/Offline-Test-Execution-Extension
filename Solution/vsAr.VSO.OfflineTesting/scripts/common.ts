@@ -351,6 +351,7 @@ export function SaveFileDataUri(data, fileName, type) {
     a["download"] = fileName;
     a.href = "data:text/" + type + ";base64," + data;
     a.innerHTML = "download";
+    a.target = "_blank";
     a.click();
     document.body.removeChild(a);
     //  delete a;
