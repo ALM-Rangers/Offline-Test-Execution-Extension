@@ -260,7 +260,7 @@ export class TestHelper {
                 try {
                     var sharedIx = index + (i + startIx) + "."
                     steps.push({
-                        id: sharedStepWorkItemId,
+                        id: parentId,
                         index: index + (i + startIx),
                         action: sharedStepWI[0].fields['System.Title'],
                         expectedResult: "",
