@@ -294,6 +294,7 @@ export function getTestPointsForSuite(planId, startSuiteId, includeChilds: boole
                     var tarm = <TestContracts.TestActionResultModel><any>{
                         outcome: s.outcome,
                         comment: s.comment,
+                        errorMessage: s.comment,
                         stepIdentifier: stepIdentifier,
                     };
                     if (s.sharedStepWorkItemId){
